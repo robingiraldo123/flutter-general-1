@@ -1,78 +1,39 @@
 import 'package:flutter/material.dart';
 
-import 'package:componentes/src/providers/menu_provider.dart';
 
-import 'package:componentes/src/utils/icono_string_util.dart';
+class HomePage extends StatelessWidget{
 
-import 'package:componentes/src/pages/alert_page.dart';
+  final estiloTexto = new TextStyle( fontSize: 25 );
 
+  final conteo = 10;
 
-class HomePage extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Componentes'),
+        title: Text('Título'),
+        centerTitle: true,
       ),
-      body: _lista(),
-    );
-  }
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text( 'Número de clicks:', style: estiloTexto ),
+            Text( '$conteo'  , style: estiloTexto ),
+          ],
+        )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon( Icons.add ),
+        onPressed: () {
 
-  Widget _lista() {
-
-    // menuProvider.cargarData()
-    return FutureBuilder(
-      future: menuProvider.cargarData(),
-      initialData: [],
-      builder: ( context, AsyncSnapshot<List<dynamic>> snapshot ){
-
-        return ListView(
-          children: _listaItems( snapshot.data, context ),
-        );
-
-      },
-    );
-
-  
-
-    
-
-  }
-
-  List<Widget> _listaItems( List<dynamic> data, BuildContext context ) {
-
-    final List<Widget> opciones = [];
-
-
-    data.forEach( (opt) {
-
-      final widgetTemp = ListTile(
-        title: Text( opt['texto'] ),
-        leading:  getIcon( opt['icon'] ) ,
-        trailing: Icon ( Icons.keyboard_arrow_right, color: Colors.blue ),
-        onTap: () {
-
-          Navigator.pushNamed(context, opt['ruta'] );
-
-          // final route = MaterialPageRoute(
-          //   builder: ( context )=> AlertPage()
-          // );
-
-          // Navigator.push(context, route);
+          print('Hola Mundo!');
+          // conteo = conteo + 1;
 
         },
-      );
-
-      opciones..add( widgetTemp )
-              ..add( Divider() );
-
-    });
-
-    return opciones;
-
+      ),
+    );
   }
 
+
 }
-
-
